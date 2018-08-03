@@ -47,9 +47,12 @@ function SHOWPORT {
 		echo "${FS_NUM} : servizio --> ${SERVICE}"
 		echo "${FS_NUM} : versione --> ${VERSION}"
 		echo "-----------------------------"
-			if [ ${SERVICE}="*http*" ]
+			if [ ${SERVICE}="*http" ]
 			then
 				HTTPCHECK="SI"
+			elif [ ${SERVICE}="*ssl*" ]
+			then
+				HTTPSCHECK="SI"
 			fi
 	done
 }
@@ -60,10 +63,13 @@ function HOMEPAGE {
 		if [ $HTTPCHECK="SI" ]
 		then
 			curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
-			echo -e  " homepage html \n" >> "${FILELOCATION}${TARGET}".txt
 			HOMEPAGE="$(curl http://${TARGET})"
 			echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}.render".html
-			echo -e  "\n END CODE \n" >> "${FILELOCATION}${TARGET}".txt
+		elif [[ $HTTPSCHECK="SI" ]]
+	 		then
+				curl -IL https://${TARGET} >> "${FILELOCATION}${TARGET}".txt
+				HOMEPAGE="$(curl https://${TARGET})"
+				echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}.render".html
 		else
 				echo -e "\n NO HTTP SERVICE FOUND \n"
 		fi
@@ -106,7 +112,7 @@ local CHECK="${FILELOCATION}${TARGET}".txt
 }
 
 #Testa l'host target
-PING
+#PING
 
 #Indica dove salvare il file
 STORETXT
