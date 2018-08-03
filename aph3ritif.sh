@@ -65,17 +65,35 @@ function HOMEPAGE {
 		if [ $HTTPCHECK="SI" ]
 		then
 			curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
-			HOMEPAGE="$(curl http://${TARGET})"
-			echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}.render".html
+			wget http://${TARGET} -O "${FILELOCATION}${TARGET}.render".html
 		elif [[ $HTTPSCHECK="SI" ]]
 	 		then
 				curl -IL https://${TARGET} >> "${FILELOCATION}${TARGET}".txt
-				HOMEPAGE="$(curl https://${TARGET})"
+				wget http://${TARGET} -O "${FILELOCATION}${TARGET}.render".html
 				echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}.render".html
 		else
 				echo -e "\n NO HTTP SERVICE FOUND \n"
 		fi
 }
+
+
+#funzione searchinginthehomepage
+function CRAWLINGHOME {
+	local CHECK="${FILELOCATION}${TARGET}.render".html
+	local FS_NUM
+	grep apache ${CHECK} | while read LINE
+		do
+		echo "-----------------------------"
+		echo "${FS_NUM} : Trovato indizio    --> ${LINE}"
+		echo "-----------------------------"
+
+	done
+
+}
+
+
+
+
 
 #funzione di inserimento location file.txt
 function STORETXT {
@@ -113,6 +131,9 @@ local CHECK="${FILELOCATION}${TARGET}".txt
 	fi
 }
 
+############################################################################
+##  RICHIAMO ESECUZIONE ##
+
 #Testa l'host target
 #PING
 
@@ -130,3 +151,6 @@ SHOWPORT
 
 #HomePage in caso di HTTPYES
 HOMEPAGE
+
+
+CRAWLINGHOME
