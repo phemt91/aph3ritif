@@ -65,7 +65,7 @@ function HOMEPAGE {
 		if [ $HTTPCHECK="SI" ]
 		then
 			curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
-			wget http://${TARGET} -O "${FILELOCATION}${TARGET}.render".html
+			wget https://${TARGET} -O "${FILELOCATION}${TARGET}.render".html
 		elif [[ $HTTPSCHECK="SI" ]]
 	 		then
 				curl -IL https://${TARGET} >> "${FILELOCATION}${TARGET}".txt
