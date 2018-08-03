@@ -86,9 +86,7 @@ function CRAWLINGHOME {
 		echo "-----------------------------"
 		echo "${FS_NUM} : Trovato indizio    --> ${LINE}"
 		echo "-----------------------------"
-
-	done
-
+		done
 }
 
 
@@ -134,7 +132,7 @@ local CHECK="${FILELOCATION}${TARGET}".txt
 ############################################################################
 ##  RICHIAMO ESECUZIONE ##
 
-#Testa l'host target
+#Testa l'host target non funzionante
 #PING
 
 #Indica dove salvare il file
@@ -152,5 +150,5 @@ SHOWPORT
 #HomePage in caso di HTTPYES
 HOMEPAGE
 
-
+#Ispeziona la home in cerca di indizi su cms/server
 CRAWLINGHOME
