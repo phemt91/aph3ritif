@@ -22,6 +22,8 @@ local DATE=`date '+%Y-%m-%d %H:%M:%S'`
 	chmod 777 "${FILELOCATION}${TARGET}".txt
 }
 
+
+#funzione di ping per ora disabilitata, problemi su host reali
 function PING {
 
 
