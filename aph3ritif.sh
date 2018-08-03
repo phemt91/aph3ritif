@@ -1,4 +1,4 @@
-#sistemare curl solo se http
+#sistemare curl in background
 #aggiungere barra caricamente scan
 #aggiungere funzione fuzzing
 #aggiungere searchsploit
@@ -47,20 +47,26 @@ function SHOWPORT {
 		echo "${FS_NUM} : servizio --> ${SERVICE}"
 		echo "${FS_NUM} : versione --> ${VERSION}"
 		echo "-----------------------------"
-
+			if [ ${SERVICE}="*http*" ]
+			then
+				HTTPCHECK="SI"
+			fi
 	done
 }
 
 #funzione homepage
 function HOMEPAGE {
 
-		curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
-		HOMEPAGE="$(curl http://${TARGET})"
-		echo -e  " homepage html \n" >> "${FILELOCATION}${TARGET}".txt
-		echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}".txt
-		echo -e  "\n END CODE \n" >> "${FILELOCATION}${TARGET}".txt
-
-
+		if [ $HTTPCHECK="SI" ]
+		then
+			curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
+			HOMEPAGE="$(curl http://${TARGET})"
+			echo -e  " homepage html \n" >> "${FILELOCATION}${TARGET}".txt
+			echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}".txt
+			echo -e  "\n END CODE \n" >> "${FILELOCATION}${TARGET}".txt
+		else
+				echo -e "\n NO HTTP SERVICE FOUND \n"
+		fi
 }
 
 #funzione di inserimento location file.txt
