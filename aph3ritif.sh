@@ -1,5 +1,4 @@
-#mettere in backgruond il ping
-#ping messo in commento da rivedere o cancellare
+#sistemare curl solo se http
 #aggiungere barra caricamente scan
 #aggiungere funzione fuzzing
 #aggiungere searchsploit
@@ -18,7 +17,7 @@ local DATE=`date '+%Y-%m-%d %H:%M:%S'`
 
 	echo -e  " -% ${DATE} %- \n" >> "${FILELOCATION}${TARGET}".txt
 	nmap -sS -sV ${TARGET} >> "${FILELOCATION}${TARGET}".txt
-	echo -e "\n Scan conclusa \n ------------ \n" >> "${FILELOCATION}${TARGET}".txt
+	echo -e "\n Scan conclusa \n ------------------ \n" >> "${FILELOCATION}${TARGET}".txt
 #	cat "${FILELOCATION}${TARGET}".txt
 	chmod 777 "${FILELOCATION}${TARGET}".txt
 }
@@ -41,19 +40,28 @@ function SHOWPORT {
 	local CHECK="${FILELOCATION}${TARGET}".txt
 	local FS_NUM
 	grep open ${CHECK} | while read PORT STATE SERVICE VERSION
-	do 
+	do
 		echo "-----------------------------"
 		echo "${FS_NUM} : porta    --> ${PORT}"
 		echo "${FS_NUM} : stato    --> ${STATE}"
 		echo "${FS_NUM} : servizio --> ${SERVICE}"
 		echo "${FS_NUM} : versione --> ${VERSION}"
 		echo "-----------------------------"
+
 	done
 }
 
-#funzione searchsploit
-#function SEARCHSPLOIT {
-#}
+#funzione homepage
+function HOMEPAGE {
+
+		curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
+		HOMEPAGE="$(curl http://${TARGET})"
+		echo -e  " homepage html \n" >> "${FILELOCATION}${TARGET}".txt
+		echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}".txt
+		echo -e  "\n END CODE \n" >> "${FILELOCATION}${TARGET}".txt
+
+
+}
 
 #funzione di inserimento location file.txt
 function STORETXT {
@@ -103,5 +111,8 @@ CHECKFILE
 #Esegue una scansione nmap -sS -sV e salva il file
 NMAP1
 
+#Mostra le porte aperte
 SHOWPORT
 
+#HomePage in caso di HTTPYES
+HOMEPAGE
