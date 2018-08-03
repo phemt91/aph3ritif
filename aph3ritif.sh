@@ -60,9 +60,9 @@ function HOMEPAGE {
 		if [ $HTTPCHECK="SI" ]
 		then
 			curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
-			HOMEPAGE="$(curl http://${TARGET})"
 			echo -e  " homepage html \n" >> "${FILELOCATION}${TARGET}".txt
-			echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}".txt
+			HOMEPAGE="$(curl http://${TARGET})"
+			echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}.render".html
 			echo -e  "\n END CODE \n" >> "${FILELOCATION}${TARGET}".txt
 		else
 				echo -e "\n NO HTTP SERVICE FOUND \n"
