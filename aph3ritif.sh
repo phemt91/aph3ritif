@@ -7,6 +7,9 @@
 #!/bin/bash
 
 TARGET=$1
+RED="\e[0;31m"
+LGREEN="\e[1;32m"
+Z="\e[0m" #escape colori
 
 
 # funzione Scan del target
@@ -60,6 +63,9 @@ function SHOWPORT {
 }
 
 #funzione homepage
+
+
+
 function HOMEPAGE {
 
 		if [ $HTTPCHECK="SI" ]
@@ -77,6 +83,26 @@ function HOMEPAGE {
 }
 
 
+#funzione hompage 2.0
+function HOMEPAGE {
+
+		if [ $HTTPCHECK="SI" ]
+		then
+			curl -IL https://${TARGET} >> "${FILELOCATION}${TARGET}".txt
+			wget http://${TARGET} -O "${FILELOCATION}${TARGET}.render".html
+			echo ${HOMEPAGE} >> "${FILELOCATION}${TARGET}.render".html
+				elif [ $? != 0 ]
+				then
+					curl -IL http://${TARGET} >> "${FILELOCATION}${TARGET}".txt
+					wget https://${TARGET} -O "${FILELOCATION}${TARGET}.render".html
+		else
+				echo -e "\n NO HTTP SERVICE FOUND \n"
+		fi
+}
+
+
+
+
 #funzione searchinginthehomepage
 function CRAWLINGHOME {
 	local CHECK="${FILELOCATION}${TARGET}.render".html
@@ -84,7 +110,7 @@ function CRAWLINGHOME {
 	grep 'apache\|wp\|wordpress' ${CHECK} | while read LINE
 		do
 		echo "-----------------------------"
-		echo "${FS_NUM} : Trovato indizio    --> ${LINE}"
+		echo -e "${FS_NUM} : $RED Trovato indizio $Z   --> $LGREEN ${LINE} $Z"
 		echo "-----------------------------"
 		done
 }
