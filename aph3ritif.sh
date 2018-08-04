@@ -14,27 +14,57 @@ TARGET=$1
 
 #check programmi necessari al funzionamento
 function CHECKTOOL {
-	local RISP
-	dpkg-query -l nmap > /dev/null
-	case $? in
-	   0)
-		 echo -e "-------------------------\n"
-		 echo -e "tool necessari installati\n"
-		 echo -e "-------------------------\n"
-		 ;;
-	   1)
-		 read -p "Installare pacchetto mancante?" RISP
-		  	case "$RISP" in
-					[sS]|[yY])
-					sudo apt-get install nmap
-					;;
-					*)
-					echo -e  "\n\n Programma obbligatorio \n\n"
-					exit 2
-					;;
-				esac
-		 ;;
-	esac
+	function CHECKNMAP {
+		local RISP
+
+		dpkg-query -l nmap > /dev/null
+		case $? in
+		   0)
+			 echo -e "-------------------------\n"
+			 echo -e "nmap installato\n"
+			 echo -e "-------------------------\n"
+			 ;;
+		   1)
+			 read -p "Installare pacchetto mancante?" RISP
+			  	case "$RISP" in
+						[sS]|[yY])
+						sudo apt-get install nmap
+						;;
+						*)
+						echo -e  "\n\n Programma obbligatorio \n\n"
+						exit 2
+						;;
+					esac
+			 ;;
+		esac
+	}
+	function CHECKCURL {
+		local RISP
+
+		dpkg-query -l curl > /dev/null
+		case $? in
+		   0)
+			 echo -e "-------------------------\n"
+			 echo -e "curl installato\n"
+			 echo -e "-------------------------\n"
+			 ;;
+		   1)
+			 read -p "Installare pacchetto mancante?" RISP
+			  	case "$RISP" in
+						[sS]|[yY])
+						sudo apt-get install curl
+						;;
+						*)
+						echo -e  "\n\n Programma obbligatorio \n\n"
+						exit 2
+						;;
+					esac
+			 ;;
+		esac
+	}
+
+	CHECKNMAP
+	CHECKCURL
 }
 #funzione Scan del target
 function NMAP1 {
