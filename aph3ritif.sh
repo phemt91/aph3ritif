@@ -88,7 +88,7 @@ function CHECKTOOL {
 	}
 	CHECKNMAP
 	CHECKCURL
-	CHECKSEARCHEXP
+#	CHECKSEARCHEXP
 }
 #funzione Scan del target
 function NMAP1 {
@@ -132,8 +132,17 @@ function SHOWPORT {
 			then
 				HTTPSCHECK="SI"
 			fi
+			SEARCHEXP=${VERSION}
+			SEARCHSPLOIT
+			echo -e "############################################\n"
+			echo -e "\n"
+
 	done
 }
+function SEARCHSPLOIT {
+	searchsploit ${SEARCHEXP}
+
+	}
 #Funzione di download pagina target
 function HOMEPAGE {
 
