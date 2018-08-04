@@ -107,7 +107,7 @@ function HOMEPAGE {
 function CRAWLINGHOME {
 	local CHECK="${FILELOCATION}${TARGET}.render".html
 	local FS_NUM
-	grep 'apache\|wp\|wordpress' ${CHECK} | while read LINE
+	grep 'apache\|wp\|wordpress\|joomla' ${CHECK} | while read LINE
 		do
 		echo "-----------------------------"
 		echo -e "${FS_NUM} : $RED Trovato indizio $Z   --> $LGREEN ${LINE} $Z"
