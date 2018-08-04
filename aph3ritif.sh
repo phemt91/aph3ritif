@@ -62,9 +62,33 @@ function CHECKTOOL {
 			 ;;
 		esac
 	}
+	function CHECKSEARCHEXP {
+		local RISP
 
+		dpkg-query -l searchsploit > /dev/null
+		case $? in
+			 0)
+			 echo -e "-------------------------\n"
+			 echo -e "searchsploit installato\n"
+			 echo -e "-------------------------\n"
+			 ;;
+			 1)
+			 read -p "Installare pacchetto mancante?" RISP
+					case "$RISP" in
+						[sS]|[yY])
+						sudo apt-get install searchsploit
+						;;
+						*)
+						echo -e  "\n\n Programma obbligatorio \n\n"
+						exit 2
+						;;
+					esac
+			 ;;
+		esac
+	}
 	CHECKNMAP
 	CHECKCURL
+	CHECKSEARCHEXP
 }
 #funzione Scan del target
 function NMAP1 {
