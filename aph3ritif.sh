@@ -1,5 +1,4 @@
 #sistemare curl in background
-#aggiungere barra caricamente scan
 #aggiungere funzione fuzzing
 #aggiungere searchsploit
 
@@ -7,12 +6,37 @@
 #!/bin/bash
 
 TARGET=$1
-RED="\e[0;31m"
-LGREEN="\e[1;32m"
-Z="\e[0m" #escape colori
 
+#Colori
+	RED="\e[0;31m"
+	LGREEN="\e[1;32m"
+	Z="\e[0m" #escape colori
 
-# funzione Scan del target
+#check programmi necessari al funzionamento
+function CHECKTOOL {
+	local RISP
+	dpkg-query -l nmap > /dev/null
+	case $? in
+	   0)
+		 echo -e "-------------------------\n"
+		 echo -e "tool necessari installati\n"
+		 echo -e "-------------------------\n"
+		 ;;
+	   1)
+		 read -p "Installare pacchetto mancante?" RISP
+		  	case "$RISP" in
+					[sS]|[yY])
+					sudo apt-get install nmap
+					;;
+					*)
+					echo -e  "\n\n Programma obbligatorio \n\n"
+					exit 2
+					;;
+				esac
+		 ;;
+	esac
+}
+#funzione Scan del target
 function NMAP1 {
 	local DATE=`date '+%Y-%m-%d %H:%M:%S'`
 
@@ -56,6 +80,7 @@ function SHOWPORT {
 			fi
 	done
 }
+#Funzione di download pagina target
 function HOMEPAGE {
 
 		if [ $HTTPCHECK="SI" ]
@@ -71,7 +96,7 @@ function HOMEPAGE {
 				echo -e "\n NO HTTP SERVICE FOUND \n"
 		fi
 }
-#funzione searchinginthehomepage
+#funzione ricerca indizi su pagina target
 function CRAWLINGHOME {
 	local CHECK="${FILELOCATION}${TARGET}.render".html
 	local FS_NUM
@@ -95,7 +120,7 @@ function STORETXT {
 		exit 1
 	fi
 }
-#funzione che controlla l'esistenza del file
+#funzione che controlla esistenza del file
 function CHECKFILE {
 	local CHECK="${FILELOCATION}${TARGET}".txt
 		echo " ${CHECK} "
@@ -116,7 +141,7 @@ function CHECKFILE {
 }
 #funzione esecuzione programma
 function ESECUZIONE {
-
+	CHECKTOOL
 	STORETXT
 	CHECKFILE
 	NMAP1
