@@ -64,7 +64,7 @@ function CHECKTOOL {
 	}
 	function CHECKSEARCHEXP {
 		local RISP
-
+#La funzione search deve migliorare fixare
 		dpkg-query -l searchsploit > /dev/null
 		case $? in
 			 0)
@@ -90,7 +90,7 @@ function CHECKTOOL {
 	CHECKCURL
 #	CHECKSEARCHEXP
 }
-#funzione Scan del target
+#funzione Scan del target 
 function NMAP1 {
 	local DATE=`date '+%Y-%m-%d %H:%M:%S'`
 
