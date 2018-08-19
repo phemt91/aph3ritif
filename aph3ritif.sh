@@ -1,6 +1,14 @@
 #sistemare curl in background
 #aggiungere funzione fuzzing
 #aggiungere searchsploit
+#dpkg find, non funzionale su tutti le distro
+#Migliorare BANNER
+#Implementare session token
+#Directory Name
+#Test File Extensions (per ottimizzare ricerca)
+#DORKS
+#Aggiungere ricerc campi hidden
+#Implementare browser terminale e rimuovere file.txt
 
 
 #!/bin/bash
@@ -64,7 +72,6 @@ function CHECKTOOL {
 	}
 	function CHECKSEARCHEXP {
 		local RISP
-#La funzione search deve migliorare fixare
 		dpkg-query -l searchsploit > /dev/null
 		case $? in
 			 0)
@@ -90,7 +97,7 @@ function CHECKTOOL {
 	CHECKCURL
 #	CHECKSEARCHEXP
 }
-#funzione Scan del target 
+#funzione Scan del target
 function NMAP1 {
 	local DATE=`date '+%Y-%m-%d %H:%M:%S'`
 
@@ -204,6 +211,7 @@ function CHECKFILE {
 }
 #funzione esecuzione programma
 function ESECUZIONE {
+	BANNER
 	CHECKTOOL
 	STORETXT
 	CHECKFILE
@@ -212,6 +220,18 @@ function ESECUZIONE {
 	HOMEPAGE
 	CRAWLINGHOME
 
+}
+
+#Aggiunta Banner
+function BANNER {
+		cat<<"LIM"
+		. ____  _                    _    ___  _
+		|  _ \| |__   ___ _ __ ___ | |_ / _ \/ |
+		| |_) | '_ \ / _ \ '_ ` _ \| __| (_) | |
+		|  __/| | | |  __/ | | | | | |_ \__, | |
+		|_|   |_| |_|\___|_| |_| |_|\__|  /_/|_|
+
+LIM
 }
 
 ############################################################################
