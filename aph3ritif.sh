@@ -9,6 +9,11 @@
 #DORKS
 #Aggiungere ricerc campi hidden
 #Implementare browser terminale e rimuovere file.txt
+# >> Linx
+#Usare Cartelle/File Temporanei
+# >>  Junk and Temp Files Location for tmp storage while script does its thing
+# >> JUNK=/tmp
+# >> Esempio : mktemp -p "$JUNK" -t fooooobar1.tmp.?XX""
 
 
 #!/bin/bash
