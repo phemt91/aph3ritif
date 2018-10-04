@@ -14,6 +14,10 @@
 # >>  Junk and Temp Files Location for tmp storage while script does its thing
 # >> JUNK=/tmp
 # >> Esempio : mktemp -p "$JUNK" -t fooooobar1.tmp.?XX""
+# >> temp_file=$(mktemp)
+# >> temp_dir=$(mktemp -d)
+# >> rm ${temp_file}
+# >> rm -R ${temp_dir}
 
 
 #!/bin/bash
@@ -58,7 +62,7 @@ function CHECKTOOL {
 		case $? in
 		   0)
 			 echo -e "-------------------------\n"
-			 echo -e "curl installato\n"
+			 echo -e "curl installato	   \n"
 			 echo -e "-------------------------\n"
 			 ;;
 		   1)
@@ -230,12 +234,12 @@ function ESECUZIONE {
 #Aggiunta Banner
 function BANNER {
 		cat<<"LIM"
-		. ____  _                    _    ___  _
-		|  _ \| |__   ___ _ __ ___ | |_ / _ \/ |
-		| |_) | '_ \ / _ \ '_ ` _ \| __| (_) | |
-		|  __/| | | |  __/ | | | | | |_ \__, | |
-		|_|   |_| |_|\___|_| |_| |_|\__|  /_/|_|
-
+. ____  _                    _    ___  _
+|  _ \| |__   ___ _ __ ___ | |_ / _ \/ |
+| |_) | '_ \ / _ \ '_ ` _ \| __| (_) | |
+|  __/| | | |  __/ | | | | | |_ \__, | |
+|_|   |_| |_|\___|_| |_| |_|\__|  /_/|_|
+			        aph3rtif
 LIM
 }
 
